@@ -6,13 +6,13 @@
 #Some some information needed to process the file. Fill them or change them as needed:
 
 #Name (including the file path if needed) of the raw eyetracking data file
-file_name = "XiaoNov27_2012.txt"
+file_name = "raw_data_file.txt"
 
 #Name (including the file path if needed) of the time file needed for alignment
-align_file_name = "eyetracking_align.txt"
+align_file_name = "alignmeng_time_file.txt"
 
 #Name of the aligned output file:
-output_file = "AlignedEyetrackingData.txt"
+output_file = "aligned_output_file.txt"
 
 #Whether the time in the time file is in seconds: True = sec; False = ms:
 seconds = True
