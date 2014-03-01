@@ -7,7 +7,7 @@ This Python script searches for a user-specified time point of interest (e.g., o
 
 
 ###Example
-Suppose we ask participants' to listen to sentences in the form of **"X verb-ed Y because he ..."** while looking at corresponding pictures on a computer monitor. For example, one possible sentnece is ***John scolded Bill at the airport because he did not bring the passport***, and its corresponding picture is shown below.
+Suppose we ask participants to listen to sentences in the form of **"X verb-ed Y because he ..."** while looking at corresponding pictures on a computer monitor. For example, one possible sentnece is ***John scolded Bill at the airport because he did not bring the passport***, and its corresponding picture is shown below.
 
 ![](http://imagizer.imageshack.us/v2/640x480q90/28/zcyj.png)
 
