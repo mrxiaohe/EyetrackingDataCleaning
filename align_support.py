@@ -147,3 +147,4 @@ def blinksaccade_remover(dataset, var_list, headers):
     if '1' not in [item[i] for i in index ]:
       newdata.append( item )
   return newdata
+
