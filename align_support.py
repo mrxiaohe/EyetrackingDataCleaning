@@ -134,4 +134,16 @@ def output(dataset, headers, file_name):
     file.write("%s" % line[len(headers)])
   file.close()
 
-
+def blinksaccade_remover(dataset, var_list, headers):
+  length = len(headers)
+  index = list()
+  for item in var:
+    for i in range(length):
+      if item == headers[i]:
+        index.append(i)
+  newdata = list()
+  length = len(dataset)
+  for item in dataset:
+    if '1' not in [item[i] for i in index ]:
+      newdata.append( item )
+  return newdata
