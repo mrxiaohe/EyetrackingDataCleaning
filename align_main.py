@@ -23,4 +23,3 @@ def align_output(  file_name, align_file_name, seconds, align_var, time_align_va
 	if blinksaccade_rm:
 		newset = support.blinksaccade_remover(newset, blinksaccade_rm, headers)
 	support.output(newset, headers, output_file)
-
