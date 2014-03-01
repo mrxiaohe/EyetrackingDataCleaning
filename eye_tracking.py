@@ -38,6 +38,14 @@ numsum_prior = 100
 #Number of samples after onset:
 numsum_post = 1000
 
+#Column names in the raw eye tracking data that indicate whether eyes are blinking or saccading. by default 
+
+blinksaccade_rm = ["RIGHT_IN_BLINK", "RIGHT_IN_SACCADE"]
+
+#this argument can be left blank if samples taken during blinking and saccades are not to be removed (see below).
+
+blinksaccade_rm = []
+
 ################################################################################
 #                                                                              #
 #                  !!!!Only change ths section ABOVE!!!!                       #
