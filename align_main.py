@@ -1,6 +1,6 @@
 import align_support as support
 
-def align_output(  file_name, align_file_name, seconds, align_var, time_align_var, raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file):
+def align_output(  file_name, align_file_name, seconds, align_var, time_align_var, raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file, blinksaccade_rm):
 	data = open(file_name).read().strip().split('\r')
 	data = support.tab_remover( data )
 	align_file = open(align_file_name).read().strip().split('\r')
@@ -20,5 +20,7 @@ def align_output(  file_name, align_file_name, seconds, align_var, time_align_va
 	indzero = support.scan(data, align_file, headers, headers_align, align_var, time_align_var, raw_align_var, audio_delay)
 	bounds = support.bound_search(data, indzero, numsum_prior, numsum_post, align_raw_var_ind)
 	newset = support.reduce(data, bounds, indzero)
+	if blinksaccade_rm:
+		newset = support.blinksaccade_remover(newset, blinksaccade_rm, headers)
 	support.output(newset, headers, output_file)
 
