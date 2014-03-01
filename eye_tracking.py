@@ -69,7 +69,8 @@ blinksaccade_rm = []
 
  """
 import align_main as align
-align.align_output( file_name, align_file_name, seconds, align_var, time_align_var, raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file )
+
+align.align_output( file_name, align_file_name, seconds, align_var, time_align_var, raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file, blinksaccade_rm )
 
 
 
