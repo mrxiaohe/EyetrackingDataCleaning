@@ -64,7 +64,7 @@ def blinksaccade_remover(dataset, var_list, headers):
   return newdata
 
 
-#Search for a sample that was taken at a time point of interest. E.g., if we are interested
+#Search for the sample that was taken at a time point of interest. E.g., if we are interested
 #in comprehenders' interpretation of the pronoun "he" in a recorded sentence, this function
 #will look for the sample at the onset time of "he" in the recorded sentence, and produces
 #the index for this sample. The index is the sample index on a given trial.
@@ -99,6 +99,8 @@ raw_align_var, audio_delay, time_per_samp):
   return indzero
 
 
+#Looks for the index of the first sample to be retained and the index of the last sample to be 
+#retained on a trial.
 def bound_search(dataset, indzero, numsum_prior, numsum_post, align_col):
   bounds = dict()
   rowmax = len(dataset)
@@ -124,12 +126,16 @@ def bound_search(dataset, indzero, numsum_prior, numsum_post, align_col):
         bounds.get(i).append( j )
   return bounds
 
+"""
+#The indices of all the samples between the first sample and the last sample to be retained on a trial
 def align(dataset, numsum_prior, numsum_post, indzero):
   id_keep = []
   for i in indzero:
     id_keep = id_keep + range(i - numsum_prior, i, 1) + range(i, numsum_post + 1, 1)
   return id_keep
+"""
 
+#This function reduces the eye-tracking dataset by removing samples outside the time window of interest.
 def reduce(dataset, bounds, indzero):
   newset = list()
   counter = 1
@@ -152,6 +158,8 @@ def reduce(dataset, bounds, indzero):
     counter += 1
   return newset
 
+
+#Write the new dataset to a tab-delimited text file
 def output(dataset, headers, file_name):
   file = open(file_name, "w")
   for i in range(len(headers)-1):
@@ -163,6 +171,8 @@ def output(dataset, headers, file_name):
     file.write("%s" % line[len(headers)-1])
   file.close()
 
+#Determine whether a fixation lands inside a target/interest area (on the monitor). 
+#The output consists of 1s and 0s - 1 = inside the target area, 0 = outside.
 def interest(dataset, headers, fixation_x, fixation_y, align_file, 
 headers_align, interest_coord_vars, raw_align_var, time_align_var):
   xind, yind = headers.index( fixation_x ), headers.index( fixation_y )
@@ -188,6 +198,7 @@ headers_align, interest_coord_vars, raw_align_var, time_align_var):
   return output
   
 
+#This function is used by interest() and it determines whether a point is inside a polygon.
 def fixation_in_area(x, y, interest_coordinates):
     n = len(interest_coordinates)
     IN = False
