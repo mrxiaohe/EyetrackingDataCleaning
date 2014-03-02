@@ -18,7 +18,7 @@ output_file = "aligned_output_file.txt"
 seconds = True
 
 #Name of the column in the time file that containing the alignment time:
-align_var = "Verb_onset"
+align_var = "ZIJI_onset"
 
 #Name of the column in the time file that identifies what you need to align (e.g., names of audio files):
 time_align_var = "audio"
@@ -44,7 +44,11 @@ blinksaccade_rm = ["RIGHT_IN_BLINK", "RIGHT_IN_SACCADE"]
 
 #this argument can be left blank if samples taken during blinking and saccades are not to be removed (see below).
 
-blinksaccade_rm = []
+#blinksaccade_rm = []
+
+#interest area coordinate variables:
+
+interest_coords = ["Left2", "Middle2", "Right2"]
 
 ################################################################################
 #                                                                              #
@@ -70,7 +74,9 @@ blinksaccade_rm = []
  """
 import align_main as align
 
-align.align_output( file_name, align_file_name, seconds, align_var, time_align_var, raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file, blinksaccade_rm )
+align.align_output( file_name, align_file_name, seconds, align_var, time_align_var, 
+raw_align_var, audio_delay, sample_rate, numsum_prior, numsum_post, output_file, 
+blinksaccade_rm, interest_coords)
 
 
 
