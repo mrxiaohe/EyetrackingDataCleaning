@@ -35,7 +35,7 @@ We then need to specify the following variables in the `eye_tracking.py` file:
 
     `file_name = "raw_data_file.txt"`
 
-* The name of the time file needed for alignment (including the file path if needed):
+* The name of the time and unique identifier file needed for alignment (including the file path if needed):
  
     `align_file_name = "pronoun_onset.txt"`
 
