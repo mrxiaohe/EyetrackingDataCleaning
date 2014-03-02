@@ -1,4 +1,5 @@
 import sys
+import string
 
 def data_process( dataset ):
   data = list()
@@ -6,17 +7,23 @@ def data_process( dataset ):
     data.append( line.split('\t') )
   return data
 
+
+#Convert a data point to floating point in an eye-tracking dataset. Mainly used in
+#cases where raw eye-tracking data represent numbers using quotation marks - e.g., "2.31236"
 def Float(dataset, col_index):
   length = len(dataset)
   for i in range(length):
     dataset[i][col_index] = float( dataset[i][col_index] )
   return dataset
 
+#Convert a data point to integer in an eye-tracking dataset. Mainly used in
+#cases where raw eye-tracking data represent numbers using quotation marks - e.g., "3"
 def Int(dataset, col_index):
   length = len(dataset)
   for i in range(length):
     dataset[i][col_index] = int( dataset[i][col_index] )
   return dataset
+
 
 def time_convert(dataset, col_index, rate):
   length = len(dataset)
@@ -24,6 +31,7 @@ def time_convert(dataset, col_index, rate):
     dataset[i][col_index] = dataset[i][col_index] * rate
   return dataset
 
+#match the onset time (time point of interest) of a given trial
 def match_onset(pattern, headers_align, align_file, align_var, time_align_var):
   align_ind = headers_align.index( align_var )
   search_ind = headers_align.index( time_align_var )
@@ -33,14 +41,35 @@ def match_onset(pattern, headers_align, align_file, align_var, time_align_var):
       output = line[align_ind]
   return output
 
+#Removes tabs in a dataset.
 def tab_remover(dataset):
   newset = list()
   for line in dataset:
     newset.append( line.split('\t') )
   return newset
 
+#Remove samples taken during blinking and/or saccades:
+def blinksaccade_remover(dataset, var_list, headers):
+  length = len(headers)
+  index = list()
+  for item in var_list:
+    for i in range(length):
+      if item == headers[i]:
+        index.append(i)
+  newdata = list()
+  length = len(dataset)
+  for item in dataset:
+    if '1' not in [item[i] for i in index ]:
+      newdata.append( item )
+  return newdata
 
-def scan(dataset, align_file, headers, headers_align, align_var, time_align_var, raw_align_var, audio_delay):
+
+#Search for a sample that was taken at a time point of interest. E.g., if we are interested
+#in comprehenders' interpretation of the pronoun "he" in a recorded sentence, this function
+#will look for the sample at the onset time of "he" in the recorded sentence, and produces
+#the index for this sample. The index is the sample index on a given trial.
+def scan(dataset, align_file, headers, headers_align, align_var, time_align_var, 
+raw_align_var, audio_delay, time_per_samp):
   start = 0
   index = 0
   index_start = 0
@@ -60,10 +89,10 @@ def scan(dataset, align_file, headers, headers_align, align_var, time_align_var,
       index_start = dataset[i][ind_index] 
     elif start == 2 and index < (audio_delay + index_start):
       index = dataset[i][ind_index] 
-    elif start == 2 and index >= (audio_delay + index_start) and counter < (set0/2):
+    elif start == 2 and index >= (audio_delay + index_start) and counter < (set0*1.0/time_per_samp):
       index = dataset[i][ind_index] 
       counter += 1
-    elif start == 2 and index >= (audio_delay + index_start) and counter >= (set0/2):
+    elif start == 2 and index >= (audio_delay + index_start) and counter >= (set0*1.0/time_per_samp):
       indzero.append(i)
       start = 3
       counter = 0
@@ -125,26 +154,52 @@ def reduce(dataset, bounds, indzero):
 
 def output(dataset, headers, file_name):
   file = open(file_name, "w")
-  for i in range(len(headers)):
+  for i in range(len(headers)-1):
     file.write("%s\t" % headers[i])
-  file.write("align")
+  file.write("%s" % headers[len(headers)-1])
   for line in dataset:
-    for i in range(len(headers)):
+    for i in range(len(headers)-1):
       file.write("%s\t" % line[i])
-    file.write("%s" % line[len(headers)])
+    file.write("%s" % line[len(headers)-1])
   file.close()
 
-def blinksaccade_remover(dataset, var_list, headers):
-  length = len(headers)
-  index = list()
-  for item in var:
-    for i in range(length):
-      if item == headers[i]:
-        index.append(i)
-  newdata = list()
-  length = len(dataset)
-  for item in dataset:
-    if '1' not in [item[i] for i in index ]:
-      newdata.append( item )
-  return newdata
+def interest(dataset, headers, fixation_x, fixation_y, align_file, 
+headers_align, interest_coord_vars, raw_align_var, time_align_var):
+  xind, yind = headers.index( fixation_x ), headers.index( fixation_y )
+  interest_ind = [ headers_align.index(i) for i in interest_coord_vars ]
+  num_interest = len( interest_ind )
+  output = [ [] for i in range(num_interest) ]
+  raw_align_ind, align_ind = headers.index( raw_align_var), headers_align.index( time_align_var )
+  table = string.maketrans("","")
+  for line in dataset:
+	tempind = [line[ raw_align_ind ] == item[ align_ind ] for item in align_file ].index(True)
+	for i in range(num_interest):
+		temp = align_file[ tempind ][interest_ind[i]]
+		temp = [ coord.strip() for coord in temp.split(",") ]
+		temp = [ coord.translate( table, string.punctuation ) for coord in temp ]
+		temp = [ float(number) for number in temp ]
+		temp = [ (temp[0], temp[1]), (temp[0], temp[3]), (temp[2], temp[1]), (temp[2], temp[3]) ]
+		temp = fixation_in_area( float( line[ xind ] ), float( line[ yind ] ), temp)
+		output[i].append( temp )
+		if temp == 1 and i < (num_interest - 1):
+			for j in range(i + 1, num_interest, 1):
+				output[j].append( 0 )
+			break
+  return output
+  
 
+def fixation_in_area(x, y, interest_coordinates):
+    n = len(interest_coordinates)
+    IN = False
+    x1, y1 = interest_coordinates[0]
+    for i in range( n + 1 ):
+        x2, y2 = interest_coordinates[i % n]
+        if y > min(y1, y2):
+            if y <= max(y1, y2):
+                if x <= max(x1, x2):
+                    if y1 != y2:
+                        val = (y - y1)*(x2 - x1)/(y2 - y1) + x1
+                    if x1 == x2 or x <= val:
+                        IN = not IN
+        x1, y1 = x2, y2
+    return 1 if IN else 0
