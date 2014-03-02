@@ -13,7 +13,7 @@ Suppose we ask participants to listen to sentences in the form of **"X verb-ed Y
 
 Furhter suppose that we are interested in how people interpret the pronoun ***he*** in real-time (of course, in a real experiment, both ***he*** and ***she*** would be used). One possibility is that we can examine comprehenders' eye fixation patterns from 200ms *prior* to the onset of ***he*** up to 2000ms *after* the onset of ***he***. In other words, we would like to extract the eye fixation data within a 2200ms time window on each trial.
 
-Since each trial has a different sentence stimulus and hence a different recording, the onset time for the pronoun ***he*** is different from trial to trial. We need to have a text file that contains names that can uniquely identify the trials in the raw eye tracking data set and also contain the time points of interest (e.g., pronoun onset time) for the corresponding trials (see an exerpt below).
+Since each trial has a different sentence stimulus and hence a different recording, the onset time for the pronoun ***he*** is different from trial to trial. We need to have a text file that contains names that can uniquely identify the trials in the raw eye tracking data set and also contain the time points of interest (e.g., pronoun onset time) for the corresponding trials. In this example, the file name of each audio recording can be used as a unique identifier (see an exerpt below). Presumably, the file names should be present in the raw eye-tracking data file.
 
 
 Audio | Pronoun_onset |
