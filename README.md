@@ -75,11 +75,23 @@ We then need to specify the following variables in the `eye_tracking.py` file:
 
      `numsum_post = 1000`
 
+* Whether samples taken during eye blinks or saccades should be removed. If they are to be removed, the names of the columns from the raw eye tracking data set that contain the blink and saccade information should be specified as shown below:
 
-Executing `eye_tracking.py` file will produce an output file that contains only data points (samples) within the time window of interest (200ms prior to pronoun onset to 2000ms after pronoun onset). 
+     `blinksaccade_rm = ["RIGHT_IN_BLINK", "RIGHT_IN_SACCADE"]`
+
+* this argument can be left empty if samples taken during blinking and saccades are not to be removed:
+
+     `blinksaccade_rm = []`
+
+* Interest area coordinate variables in the alignment file. Should be in the format of `x1, y1, x2, y2` - e.g., `70,25,320,743`.
+
+     `interest_coords = ["Left2", "Middle2", "Right2"]`
 
 
-###Currently working on adding the functionality of identifying whether an eye fixation is inside an interest region.
+Executing `eye_tracking.py` file will produce an output file that contains only data points (samples) within the time window of interest (e.g., in the example here, 200ms prior to pronoun onset to 2000ms after pronoun onset). 
+
+
+###The functionality of identifying whether an eye fixation is inside an interest region has been added.
 
 
 
