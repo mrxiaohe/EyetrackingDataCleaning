@@ -11,7 +11,7 @@ Suppose we ask participants to listen to sentences in the form of **"X verb-ed Y
 
 ![](http://imagizer.imageshack.us/v2/640x480q90/28/zcyj.png)
 
-Furhter suppose that we are interested in how people interpret the pronoun ***he*** in real-time. One possibility is that we can examine comprehenders' eye fixation patterns from 200ms *prior* to the onset of ***he*** up to 2000ms *after* the onset of ***he***. In other words, we would like to extract the eye fixation data within a 2200ms time window on each trial.
+Furhter suppose that we are interested in how people interpret the pronoun ***he*** in real-time (of course, in a real experiment, both ***he*** and ***she*** would be used). One possibility is that we can examine comprehenders' eye fixation patterns from 200ms *prior* to the onset of ***he*** up to 2000ms *after* the onset of ***he***. In other words, we would like to extract the eye fixation data within a 2200ms time window on each trial.
 
 Since each trial has a different sentence stimulus and hence a different recording, the onset time for the pronoun ***he*** is different from trial to trial. We need to have a text file that contains names that can uniquely identify the trials in the raw eye tracking data set and also contain the time points of interest (e.g., pronoun onset time) for the corresponding trials (see an exerpt below).
 
