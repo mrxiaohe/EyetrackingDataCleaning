@@ -69,7 +69,7 @@ interest_coords = ["Left2", "Middle2", "Right2"]
          ________| |       | |      | |______| |  | |
         |__________|       |_|      |__________|  |_|
 
-              !!!!DO NOT change ths section below!!!! 
+              !!!!DO NOT change the section below!!!! 
 
  """
 import align_main as align
