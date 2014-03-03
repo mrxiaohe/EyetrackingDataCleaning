@@ -16,18 +16,18 @@ Furhter suppose that we are interested in how people interpret the pronoun ***he
 Since each trial has a different sentence stimulus and hence a different recording, the onset time for the pronoun ***he*** is different from trial to trial. We need to have a text file that contains names that can uniquely identify the trials in the raw eye tracking data set and also contain the time points of interest (e.g., pronoun onset time) for the corresponding trials. In this example, the file name of each audio recording can be used as a unique identifier (see an exerpt below). Presumably, the file names should be present in the raw eye-tracking data file.
 
 
-Audio | Pronoun_onset |
----|---|
-Target_L1_1.wav | 1.714635598 
-Target_L1_10.wav | 	2.069305375
-Target_L1_11.wav | 	1.989329697
-Target_L1_12.wav | 	2.373784056
-Target_L1_13.wav | 	1.900261581
-Target_L1_14.wav | 	2.092761663
-Target_L1_15.wav | 	2.13880722
-Target_L1_16.wav | 	2.018276529
-Target_L1_17.wav | 	2.009345997
-Target_L1_18.wav | 	2.161914031
+Audio | Pronoun_onset | Left2 | Right2 | Middle2
+---|---|---|---|---
+Target_L1_1.wav | 1.714635598 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_10.wav | 	2.069305375 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_11.wav | 	1.989329697 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_12.wav | 	2.373784056 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_13.wav | 	1.900261581 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_14.wav | 	2.092761663 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_15.wav | 	2.13880722  | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_16.wav | 	2.018276529 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_17.wav | 	2.009345997 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
+Target_L1_18.wav | 	2.161914031 | 70,25,320,743 | 704,25,954,743 | 350,25,674,743
 
 We then need to specify the following variables in the `eye_tracking.py` file:
 
