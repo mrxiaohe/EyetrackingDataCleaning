@@ -1,7 +1,7 @@
 ##Eyetracking data alignment and cleaning
 ====
 
-This Python script searches for a user-specified time point of interest (e.g., onset/offset time of a pronoun) in an audio stimulus on an experimental trial, and extracts a user-specified number of samples prior to and following the user-specified time point. Each sample also gets an index: the sample at the time point of interest has an index of 0, all the samples following the time point of interest get positive indices, and all the samples preceding the time point of interest getting negative indices (..., -4, -3, -2, -1, 0, 1, 2, 3, 4,...):
+This Python script works for data collected using SR Research Eyelink 2 eye-trackers. It searches for a user-specified time point of interest (e.g., onset/offset time of a pronoun) in an audio stimulus on an experimental trial, and extracts a user-specified number of samples prior to and following the user-specified time point. Each sample also gets an index: the sample at the time point of interest has an index of 0, all the samples following the time point of interest get positive indices, and all the samples preceding the time point of interest getting negative indices (..., -4, -3, -2, -1, 0, 1, 2, 3, 4,...):
 
 ====
 
